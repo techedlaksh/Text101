@@ -4,7 +4,9 @@ using UnityEngine.UI;
 public class TextController : MonoBehaviour {
 
     public Text text;
-    private enum States {cell, mirror, sheets_0, lock_0, cell_mirror, sheets_1, lock_1, freedom};
+    private enum States {cell, mirror, sheets_0, lock_0, cell_mirror, sheets_1, lock_1, floor,
+                        corridor_0, corridor_1, corridor_2, corridor_3, stairs_0, stairs_1, stairs_2,
+                        closet_door, in_closet, courtyard};
     private States myState;
 
 	// Use this for initialization
@@ -15,19 +17,19 @@ public class TextController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         print(myState);
-        if(myState == States.cell) { state_cell();}
-        else if(myState == States.sheets_0) { state_sheets_0(); }
-        else if (myState == States.lock_0) { state_lock_0(); }
-        else if(myState == States.sheets_1) { state_sheets_1(); }
-        else if(myState == States.lock_1) { state_lock_1(); }
-        else if (myState == States.mirror) { state_mirror(); }
-        else if (myState == States.cell_mirror) { state_cell_mirror(); }
-        else if (myState == States.freedom) { state_freedom(); }
+        if(myState == States.cell)                  { cell();}
+        else if(myState == States.sheets_0)         { sheets_0(); }
+        else if (myState == States.lock_0)          { lock_0(); }
+        else if(myState == States.sheets_1)         { sheets_1(); }
+        else if(myState == States.lock_1)           { lock_1(); }
+        else if (myState == States.mirror)          { mirror(); }
+        else if (myState == States.cell_mirror)     { cell_mirror(); }
+        else if (myState == States.courtyard)       { courtyard(); }
 
 
     }
 
-    void state_cell()
+    void cell()
     {
         text.text = "You are in a prison cell, and you want to escape. There are " +
                     "some dirty sheets on the bed, a mirror on the wall, and the door " +
@@ -39,7 +41,7 @@ public class TextController : MonoBehaviour {
 
     }
 
-    void state_sheets_0()
+    void sheets_0()
     {
         text.text = "You can't believe you sleep in these things. Surely it's " +
                     "time somebody changed them. The pleasures of prison life, " +
@@ -48,7 +50,7 @@ public class TextController : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.R)) { myState = States.cell; }
     }
 
-    void state_lock_0()
+    void lock_0()
     {
         text.text = "This is one of those button locks. You have no idea what the " +
                     "combination is. You wish you could somehow see where the dirty " +
@@ -57,7 +59,7 @@ public class TextController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.R)) { myState = States.cell; }
     }
 
-    void state_sheets_1()
+    void sheets_1()
     {
         text.text = "Holding a mirror in your hand doesn't make the sheets look " +
                     "any better.\n\n" +
@@ -65,7 +67,7 @@ public class TextController : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.R)) { myState = States.cell_mirror; }
     }
 
-    void state_lock_1()
+    void lock_1()
     {
         text.text = "You carefully put the mirror through the bars, and turn it round " +
                     "so you can see the lock. You can just make out fingerprints around " +
@@ -75,7 +77,7 @@ public class TextController : MonoBehaviour {
         else if(Input.GetKeyDown(KeyCode.R)) { myState = States.cell_mirror; }
     }
 
-    void state_mirror()
+    void mirror()
     {
         text.text = "The dirty old mirror on the wall seems loose. \n\n" +
                     "Press T to Take the mirror, or R to Return to cell";
@@ -84,7 +86,7 @@ public class TextController : MonoBehaviour {
 
     }
 
-    void state_cell_mirror()
+    void cell_mirror()
     {
         text.text = "You are still in your cell, and you STILL want to escape! " +
                     "There are some diry sheets on the bed, a mark where the mirror " + 
@@ -94,7 +96,7 @@ public class TextController : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.L)) { myState = States.lock_1; }
     }
 
-    void state_freedom()
+    void courtyard()
     {
         text.text = "You are FREE!\n\n" +
                     "Press P to Play Again";
